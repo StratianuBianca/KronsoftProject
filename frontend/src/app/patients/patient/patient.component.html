@@ -1,0 +1,66 @@
+<table mat-table [dataSource]="patient" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> Id. </th>
+        <td mat-cell *matCellDef="let element"> {{element.patientId}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="firstName">
+        <th mat-header-cell *matHeaderCellDef> First name </th>
+        <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="lastName">
+        <th mat-header-cell *matHeaderCellDef> Last name </th>
+        <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="city">
+        <th mat-header-cell *matHeaderCellDef> City </th>
+        <td mat-cell *matCellDef="let element"> {{element.city}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="country">
+        <th mat-header-cell *matHeaderCellDef> Country </th>
+        <td mat-cell *matCellDef="let element"> {{element.country}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="phoneNumber">
+        <th mat-header-cell *matHeaderCellDef> Phone number </th>
+        <td mat-cell *matCellDef="let element"> {{element.phoneNumber}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="birthDate">
+        <th mat-header-cell *matHeaderCellDef> Birth date </th>
+        <td mat-cell *matCellDef="let element"> {{element.birthDate}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="sex">
+        <th mat-header-cell *matHeaderCellDef> Sex </th>
+        <td mat-cell *matCellDef="let element"> {{element.sex}} </td>
+    </ng-container>
+    <ng-container matColumnDef="action" class="action">
+        <th mat-header-cell *matHeaderCellDef> Action </th>
+        <td mat-cell *matCellDef="let element">
+            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="icon-button with a menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="goToEdit(element.patientId)">
+            <mat-icon >edit</mat-icon>
+            <span>Edit</span>
+          </button>
+                <button mat-menu-item (click)="onDelete(element.patientId)">
+            <mat-icon>delete</mat-icon>
+            <span>Delete</span>
+          </button>
+                <button mat-menu-item (click)="onView(element.patientId)">
+            <mat-icon>book</mat-icon>
+            <span>View appointment</span>
+          </button>
+            </mat-menu>
+        </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="this.service.displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: this.service.displayedColumns;"></tr>
+</table>

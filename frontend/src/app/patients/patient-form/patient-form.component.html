@@ -1,0 +1,63 @@
+<form [formGroup]="form" class="container">
+
+    <mat-form-field class="id">
+        <mat-label>Id.</mat-label>
+        <input formControlName="id" matInput placeholder="Ex. Nougat">
+        <mat-hint></mat-hint>
+    </mat-form-field>
+
+    <mat-form-field class="firstName">
+        <mat-label>Fist name</mat-label>
+        <input formControlName="firstName" matInput placeholder="Ex. Nougat">
+        <mat-hint></mat-hint>
+    </mat-form-field>
+
+    <mat-form-field class="lastName">
+        <mat-label>Last name</mat-label>
+        <input formControlName="lastName" matInput placeholder="Ex. Nougat">
+        <mat-hint></mat-hint>
+    </mat-form-field>
+    <mat-form-field class="phoneNumber" appearance="fill">
+        <mat-label>Phone number</mat-label>
+        <input formControlName="phoneNumber" matInput placeholder="Ex. Nougat" required>
+        <mat-icon matSuffix>phone</mat-icon>
+        <mat-hint></mat-hint>
+    </mat-form-field>
+
+    <!-- <mat-form-field class="birthDate">
+        <mat-label>Birth date</mat-label>
+        <input formControlName="birthDate" matInput placeholder="Ex. Nougat">
+        <mat-hint></mat-hint>
+    </mat-form-field> -->
+    <mat-form-field class="birthDate" appearance="fill">
+        <mat-label>Choose a date</mat-label>
+        <mat-input [formGroup]="range">
+            <input matInput [matDatepicker]="picker" formControlName="birth">
+        </mat-input>
+        <mat-datepicker-toggle matSuffix [for]="picker">
+            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+        </mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="gender">
+        <mat-label>Sex</mat-label>
+        <mat-select [(ngModel)]="selectedGender" name="gender" [ngModelOptions]="{standalone: true}">
+            <mat-option *ngFor="let gender of genders" [value]="gender.value">{{gender.viewValue}}</mat-option>
+        </mat-select>
+
+        <mat-hint></mat-hint>
+    </mat-form-field>
+    <mat-form-field class="country">
+        <mat-label>Country</mat-label>
+        <input formControlName="country" matInput placeholder="Ex. Nougat">
+        <mat-hint></mat-hint>
+    </mat-form-field>
+    <mat-form-field class="city">
+        <mat-label>City</mat-label>
+        <input formControlName="city" matInput placeholder="Ex. Nougat">
+        <mat-hint></mat-hint>
+    </mat-form-field>
+    <button mat-flat-button (click)="saveData()">Save</button>
+
+</form>

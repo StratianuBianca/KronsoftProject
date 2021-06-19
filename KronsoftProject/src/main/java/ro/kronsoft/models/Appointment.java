@@ -22,4 +22,18 @@ public class Appointment {
     private Date startTime;
     private Date endTime;
     private String description;
+
+    @Override
+    public String toString() {
+        return "Appointment{" +
+                "appointmentId=" + appointmentId +
+                ", patientId=" + patientId +
+                ", type='" + type + '\'' +
+                ", status='" + status + '\'' +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
+                ", description='" + description + '\'' +
+                '}';
+    }
+
 }

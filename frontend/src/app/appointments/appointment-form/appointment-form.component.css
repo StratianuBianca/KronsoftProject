@@ -1,0 +1,22 @@
+.container {
+    margin-left: 8px;
+}
+
+.name,
+.patientId,
+.status,
+.type,
+.endTime,
+.startTime,
+.description,
+.startEndTime {
+    background-color: #424242;
+}
+
+.id {
+    background-color: #424242;
+}
+
+.mat-flat-button {
+    background-color: #424242;
+}

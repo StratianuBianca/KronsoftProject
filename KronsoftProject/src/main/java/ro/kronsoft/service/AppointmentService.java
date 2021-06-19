@@ -7,6 +7,8 @@ import ro.kronsoft.repository.AdminRepository;
 import ro.kronsoft.repository.AppointmentRepository;
 import ro.kronsoft.repository.PatientRepository;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -40,6 +42,7 @@ public class AppointmentService {
         }
         return new ArrayList<>();
     }
+
     public Appointment createAppointment(Appointment appointment){
         int patientId=appointment.getPatientId();
         if(patientRepository.existsById(patientId)) {
@@ -55,7 +58,7 @@ public class AppointmentService {
         }
         return false;
     }
-    public Appointment updateAppointment(Appointment appointment){
+    public Appointment updateAppointment(Appointment appointment) {
         int id=appointment.getAppointmentId();
         Optional<Appointment> newAppointment=appointmentRepository.findById(id);
         if(newAppointment.isPresent()){

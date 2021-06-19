@@ -1,0 +1,15 @@
+export enum ApiEnum{
+    GET_ADMIN = '/admin/all',
+    CREATE_ADMIN = '/admin/create',
+    UPDATE_ADMIN = '/admin/update/',
+    DELETE_ADMIN = '/admin/delete/',
+    GET_APPOINTMENT = '/appointment/all',
+    CREATE_APPOINTENT = '/appointment/create',
+    UPDATE_APPOINTENT = '/appointment/update',
+    DELETE_APPOINTMENT = '/appointment/delete/',
+    GET_PATIENT = '/patient/all',
+    CREATE_PATIENT = '/patient/create',
+    UPDATE_PATIENT = '/patient/update',
+    DELETE_PATIENT = '/patient/delete/',
+    VIEW_APPOINTMENTS='/appointment',
+}

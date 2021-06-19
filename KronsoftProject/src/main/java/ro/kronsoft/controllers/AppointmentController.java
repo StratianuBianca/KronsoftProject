@@ -12,6 +12,7 @@ import io.swagger.annotations.ApiResponses;
 import ro.kronsoft.models.Appointment;
 import ro.kronsoft.service.AppointmentService;
 
+import java.text.ParseException;
 import java.util.List;
 
 @RestController
@@ -44,9 +45,10 @@ public class AppointmentController {
                     @ApiResponse(code = 200, message = "Successful")
             }
     )
-    @GetMapping()
-    public ResponseEntity<List<Appointment>> getAppointmentsByPatientId(@RequestParam int id) {
-       List <Appointment> appointments = service.getAppointmentByPatient(id);
+    @GetMapping("{patientId}")
+    public ResponseEntity<List<Appointment>> getAppointmentsByPatientId(@PathVariable int patientId) {
+        System.out.println("ff");
+       List <Appointment> appointments = service.getAppointmentByPatient(patientId);
         if (appointments.isEmpty()) {
             return new ResponseEntity<>(null, new HttpHeaders(), HttpStatus.NOT_FOUND);
         }
@@ -77,7 +79,8 @@ public class AppointmentController {
             }
     )
     @PutMapping("/update")
-    public ResponseEntity<Appointment> updateAdmin(@RequestBody Appointment appointment) {
+    public ResponseEntity<Appointment> updateAdmin(@RequestBody Appointment appointment) throws ParseException {
+        System.out.println(appointment);
         Appointment updateAppointment = service.updateAppointment(appointment);
         if (updateAppointment == null) {
             return new ResponseEntity<>(null, new HttpHeaders(), HttpStatus.BAD_REQUEST);
@@ -99,7 +102,6 @@ public class AppointmentController {
         }
         return new ResponseEntity<>(new HttpHeaders(), HttpStatus.NOT_FOUND);
     }
-
 
 }
 
