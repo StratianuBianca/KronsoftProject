@@ -35,8 +35,6 @@ export class PatientService{
         return this.service.submitPutRequest(ApiEnum.UPDATE_PATIENT, newPatient);
     }
     viewAppointments(patientId:number):Observable<AppointmentModel>{
-        console.log("yesIntra");
-        console.log(ApiEnum.VIEW_APPOINTMENTS+`/${patientId}`);
         return this.service.submitGetRequest(ApiEnum.VIEW_APPOINTMENTS+`/${patientId}`);
     }
 }

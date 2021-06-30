@@ -21,6 +21,23 @@ public class PatientController {
     @Autowired
     private PatientService service;
 
+    @ApiOperation(value = "Return patient id by patient name")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(code = 404, message = "Appointments not found"),
+                    @ApiResponse(code = 200, message = "Successful")
+            }
+    )
+    @GetMapping("/id/{patientFirstName}/{patientLastName}")
+    public ResponseEntity<Integer> getIdByPatientName(@PathVariable String patientFirstName, @PathVariable String patientLastName) {
+        System.out.println("ASASssss");
+       int id = service.getIdByPatientName(patientFirstName, patientLastName);
+        if (id==-1) {
+            return new ResponseEntity<>(null, new HttpHeaders(), HttpStatus.BAD_REQUEST);
+        }
+        System.out.println(id);
+        return new ResponseEntity<>(id, new HttpHeaders(), HttpStatus.OK);
+    }
     @ApiOperation(value = "Return all patients")
     @ApiResponses(
             value = {

@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ro.kronsoft.models.Appointment;
 import ro.kronsoft.models.Patient;
-import ro.kronsoft.repository.AppointmentRepository;
 import ro.kronsoft.repository.PatientRepository;
 
 import java.util.List;
@@ -25,6 +24,19 @@ public class PatientService {
             return patientRepository.getById(id);
         }
         return null;
+    }
+    public int getIdByPatientName(String patientFirstName, String patientLastName){
+        int patientId = -1;
+       // System.out.println("SDSD");
+       // System.out.println(patientFirstName);
+        List<Patient> allPatients=patientRepository.findAll();
+        for(Patient patient:allPatients){
+            if(patientFirstName.equals(patient.getLastName()) && patientLastName.equals(patient.getFirstName())){
+                patientId=patient.getPatientId();
+            }
+        }
+      //  System.out.println(patientId);
+        return patientId;
     }
     public Patient createPatient(Patient patient){
        patient= patientRepository.save(patient);

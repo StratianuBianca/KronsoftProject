@@ -38,6 +38,7 @@ public class AppointmentController {
         return new ResponseEntity<>(appointments, new HttpHeaders(), HttpStatus.OK);
     }
 
+
     @ApiOperation(value = "Return appointments by patient id")
     @ApiResponses(
             value = {
@@ -47,14 +48,29 @@ public class AppointmentController {
     )
     @GetMapping("{patientId}")
     public ResponseEntity<List<Appointment>> getAppointmentsByPatientId(@PathVariable int patientId) {
-        System.out.println("ff");
        List <Appointment> appointments = service.getAppointmentByPatient(patientId);
         if (appointments.isEmpty()) {
             return new ResponseEntity<>(null, new HttpHeaders(), HttpStatus.NOT_FOUND);
         }
+        System.out.println(appointments);
         return new ResponseEntity<>(appointments, new HttpHeaders(), HttpStatus.OK);
     }
-
+    @ApiOperation(value = "Return appointments by patient name")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(code = 404, message = "Appointments not found"),
+                    @ApiResponse(code = 200, message = "Successful")
+            }
+    )
+    @GetMapping("/allAppointment/{patientName}")
+    public ResponseEntity<List<Appointment>> getAppointmentsByPatientName(@PathVariable String patientName) {
+        List <Appointment> appointments = service.getAppointmentByPatientName(patientName);
+        if (appointments.isEmpty()) {
+            return new ResponseEntity<>(null, new HttpHeaders(), HttpStatus.NOT_FOUND);
+        }
+        System.out.println(appointments);
+        return new ResponseEntity<>(appointments, new HttpHeaders(), HttpStatus.OK);
+    }
     @ApiOperation(value = "Post appointments")
     @ApiResponses(
             value = {

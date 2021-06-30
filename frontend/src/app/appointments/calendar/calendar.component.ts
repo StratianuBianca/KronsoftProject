@@ -1,75 +1,59 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {DayPilot, DayPilotCalendarComponent} from "daypilot-pro-angular";
-import {DataService, MoveEventParams} from "./data.service";
-import {CreateComponent} from "./create.component";
-
+import { HttpClient,HttpHeaders } from '@angular/common/http';
+import { CalendarOptions } from '@fullcalendar/angular'
+import { Data, Router } from '@angular/router';
+import { AppointmentService } from 'src/app/service/appointments.service';
+import { Subscription } from 'rxjs';
+import { AppointmentModel } from 'src/app/models/appointment.model';
+import { CalendarModel } from 'src/app/models/calendar.model';
+import { th } from 'date-fns/locale';
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.css']
 })
-export class CalendarComponent implements OnInit, AfterViewInit {
-  @ViewChild("calendar", { static: false })
-  calendar!: DayPilotCalendarComponent;
-  @ViewChild("create", { static: false })
-  create!: CreateComponent;
-
-  events!: any[];
-
-  navigatorConfig = {
-    selectMode: "week",
-    showMonths: 3,
-    skipMonths: 3
+export class CalendarComponent implements OnInit {
+  events: CalendarModel[]= [
+    //{ title: 'event1', start: '2021-06-27',end:'2021-06-30' },
+    //{ title: 'event 2', start: '2021-06-30',end:'' },
+    //{ title: 'even', start: '2021-06-01',end:'' }
+  ];
+  calendarOptions: CalendarOptions = {
+    initialView: 'dayGridMonth',
+    events: []= this.events,
+    editable: true,
+    eventStartEditable : true ,
   };
-
-  calendarConfig = {
-    startDate: DayPilot.Date.today(),
-    viewType: "Week",
-    eventDeleteHandling: "Update",
-    onEventDeleted: (args: { e: { id: () => string; }; }) => {
-      this.ds.deleteEvent(args.e.id()).subscribe(result => this.calendar.control.message("Deleted"));
-    },
-    onEventMoved: (args: { e: { id: () => any; }; newStart: any; newEnd: any; }) => {
-      let params: MoveEventParams = {
-        id: args.e.id(),
-        newStart: args.newStart,
-        newEnd: args.newEnd
-      };
-      this.ds.moveEvent(params).subscribe(result => this.calendar.control.message("Moved"));
-    },
-    onEventResized: (args: { e: { id: () => any; }; newStart: any; newEnd: any; }) => {
-      let params: MoveEventParams = {
-        id: args.e.id(),
-        newStart: args.newStart,
-        newEnd: args.newEnd
-      };
-      this.ds.moveEvent(params).subscribe(result => this.calendar.control.message("Resized"));
-    },
-    onTimeRangeSelected: (args: any) => {
-      this.create.show(args);
-    }
-  };
-
-  constructor(private ds: DataService) {
-  }
-
-  ngOnInit(): void {
-  }
-
-  ngAfterViewInit(): void {
-    //this.ds.getEvents(this.calendar.control.visibleStart(), this.calendar.control.visibleEnd()).subscribe(result => this.events = result);
-  }
-
-  viewChange() {
-    this.ds.getEvents(this.calendar.control.visibleStart(), this.calendar.control.visibleEnd()).subscribe(result => this.events = result);
-
-  }
-
-  createClosed(result: any) {
-    if (result) {
-      this.events.push(result);
-    }
-    this.calendar.control.clearSelection();
-  }
-
+  addEvent!:CalendarModel;
+   data!: AppointmentModel;
+   subscriptionList: Subscription[] = [];
+   app: any[] = [];
+   dataTime!:Data;
+  constructor(private router: Router, public  service: AppointmentService,private http:HttpClient) {}
+  
+  ngOnInit(){
+    const words=this.router.url.split('/');
+    this.http.get('http://localhost:8090/api/v1/appointment/'.concat((words[3]))).subscribe(data => {
+      this.app.push(data);
+      for(let ev of this.app ){
+        for(let evv of ev){
+        const setDataStart=evv['startTime'];
+        const setDataEnd=evv['endTime'];
+        const startTime=setDataStart.split('T');
+        const endTime=setDataEnd.split('T');
+        this.addEvent={
+          title:evv['description'],
+          start:startTime[0],
+          end:endTime[0]
+        }
+        this.calendarOptions.events=this.events.concat({title: evv['description'], start:startTime[0], end:endTime[0]});
+        this.events.push(this.addEvent);
+        }
+      }
+    
+ });
+ }
+ dateClick(event: any){
+   console.log(event);
+ }
 }

@@ -1,11 +1,25 @@
 <mat-toolbar color="primary">
     <span>Patient App</span>
 </mat-toolbar>
-<mat-toolbar>
+<mat-toolbar class="toolbar">
     <section>
         <div class="button-row">
-            <button mat-button (click)="goTo('patients')">Patients</button>
-            <button mat-button (click)="goTo('appointments')">Appointments</button>
+            <div class="buttons">
+                <button mat-button (click)="goTo('patients')" class="button">Patients</button>
+                <button mat-button (click)="goTo('appointments')" class="button">Appointments</button>
+            </div>
+            <form class="form">
+                <mat-form-field class="search" appearance="fill">
+                    <mat-label>Search patient</mat-label>
+                    <input type="text" #box matInput [formControl]="myControl" [matAutocomplete]="auto">
+                    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                            {{option.name}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+                <button (click)="searchPatient(box.value)">Search</button>
+            </form>
         </div>
     </section>
 </mat-toolbar>

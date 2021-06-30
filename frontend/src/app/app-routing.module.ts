@@ -5,7 +5,9 @@ import {AppointmentComponent} from "./appointments/appointment/appointment.compo
 import {AppointmentFormComponent} from "./appointments/appointment-form/appointment-form.component";
 import {PatientComponent} from "./patients/patient/patient.component";
 import {PatientsComponent} from "./patients/patients.component";
-import {PatientFormComponent} from "./patients/patient-form/patient-form.component"
+import {PatientFormComponent} from "./patients/patient-form/patient-form.component";
+import { PatientCalendarComponent } from './appointments/patient-calendar/patient-calendar.component';
+import { CalendarComponent } from "../app/appointments/calendar/calendar.component";
 const routes: Routes = [
   {path:"appointments", component:AppointmentsComponent,children:[
     {path:'edit/:id', component:AppointmentFormComponent},
@@ -19,7 +21,8 @@ const routes: Routes = [
   {path: 'add', component:PatientFormComponent},
   {path: 'list', component:PatientComponent},
   {path:'appointmentsList/:id', component:AppointmentComponent},
-  {path:'appointmentsCalendar/:id', component:AppointmentComponent},
+  {path:'appointmentsCalendar/:id', component:PatientCalendarComponent},
+  {path:'calendar/:id', component:CalendarComponent},
   {path: '**', redirectTo: '/patients/list', pathMatch: 'full'}
 
 ]},
@@ -30,3 +33,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+ 

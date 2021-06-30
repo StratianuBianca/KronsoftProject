@@ -17,7 +17,12 @@ export class PatientComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscriptionList.push(
-      this.service.getPatients().subscribe(list => this.patient = list)
+      this.service.getPatients().subscribe(list =>{ this.patient = list
+      for(let pati of this.patient){
+        const words=pati.birthDate.split("T");
+        pati.birthDate=words[0];
+      }
+      })
     )
   
 }
@@ -35,10 +40,12 @@ export class PatientComponent implements OnInit, OnDestroy {
     this.service.deletePatient(id).subscribe(() => this.patient= this.patient.filter((item) => item.patientId != id))
   }
   onView(id:number){
-    console.log(id);
     this.appointmentByPatientId=true;
     this.router.navigate(['patients/appointmentsList/', id]);
     this.service.viewAppointments(id);
-    console.log("u");
+  }
+  calendar(id:number){
+    this.router.navigate(['patients/calendar/', id]);
+    this.service.viewAppointments(id);
   }
 }

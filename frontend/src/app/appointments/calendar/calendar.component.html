@@ -1,7 +1,8 @@
-<div class="column-left">
+<!--<div class="column-left">
     <daypilot-navigator [config]="navigatorConfig" [(date)]="calendarConfig.startDate"></daypilot-navigator>
 </div>
 <div class="column-main">
     <daypilot-calendar #calendar [events]="events" [config]="calendarConfig" (viewChange)="viewChange()"></daypilot-calendar>
 </div>
-<create-dialog #create (close)="createClosed($event)"></create-dialog>
+<create-dialog #create (close)="createClosed($event)"></create-dialog> -->
+<full-calendar [options]="calendarOptions" (dateClick)="dateClick($event)" class="calendar"></full-calendar>

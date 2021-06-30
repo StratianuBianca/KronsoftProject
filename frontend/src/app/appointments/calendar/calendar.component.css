@@ -1,8 +1,4 @@
-.column-left {
-    width: 220px;
-    float: left;
-}
-
-.column-main {
-    margin-left: 220px;
+.callendar {
+    width: 70%;
+    height: 70%;
 }

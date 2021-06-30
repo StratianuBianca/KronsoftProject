@@ -6,9 +6,9 @@ export class PatientModel {
     country: string;
     phoneNumber:number;
     sex:string;
-    birthDate: Date;
+    birthDate: string;
 
-    constructor(id: number, firstName: string, lastName:string, city: string, country:string, phoneNumber:number, sex:string, birtDate:Date) {
+    constructor(id: number, firstName: string, lastName:string, city: string, country:string, phoneNumber:number, sex:string, birtDate:string) {
       this.patientId = id;
       this.firstName = firstName;
       this.lastName = lastName;

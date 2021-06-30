@@ -54,9 +54,15 @@
             <mat-icon>delete</mat-icon>
             <span>Delete</span>
           </button>
+
                 <button mat-menu-item (click)="onView(element.patientId)">
             <mat-icon>book</mat-icon>
             <span>View appointment</span>
+          </button>
+
+                <button mat-menu-item (click)="calendar(element.patientId)">
+            <mat-icon>calendar_today</mat-icon>
+            <span>Calendar</span>
           </button>
             </mat-menu>
         </td>

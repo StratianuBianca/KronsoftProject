@@ -23,11 +23,25 @@ export class AppointmentComponent implements OnInit, OnDestroy {
     this.successMsg='';
     this.errorMsg='';
     if(this.router.url==='/appointments/list'){
-    this.subscriptionList.push(this.service.getAppointments().subscribe(list=>this.app=list));
+    this.subscriptionList.push(this.service.getAppointments().subscribe(list=>{this.app=list
+      for(let appointme of this.app){
+        const words=appointme.startTime.split("T");
+        appointme.startTime=words[0];
+        const words2=appointme.endTime.split("T");
+        appointme.endTime=words2[0];
+      }
+    }));
     }
     else{
       const words=this.router.url.split('/');
-      this.subscriptionList.push(this.service.getAppointmentById(parseInt(words[3])).subscribe(list=>this.app=list));
+      this.subscriptionList.push(this.service.getAppointmentById(parseInt(words[3])).subscribe(list=>{this.app=list
+      for(let appointme of this.app){
+        const words=appointme.startTime.split("T");
+        appointme.startTime=words[0];
+        const words2=appointme.endTime.split("T");
+        appointme.endTime=words2[0];
+      }
+      }));
     }
   }
 
@@ -43,7 +57,7 @@ export class AppointmentComponent implements OnInit, OnDestroy {
   }
 
   onDelete(id: number){
-    this.service.deleteAppointment(id).subscribe(() => this.app = this.app.filter((item) => item.appointmentId != id))
+    this.service.deleteAppointment(id).subscribe(() => this.app = this.app.filter((item) => item.appointmentId != id));
   }
 
 }

@@ -11,7 +11,7 @@ import { ApiEnum } from './api.enum';
 
 export class AppointmentService{
     showAppointmentForm: boolean=false;
-    displayedColumns:string[]=['id','patientId', 'status', 'type','startTime','endTime', 'description','action','range' ];
+    displayedColumns:string[]=['id','patientId', 'status', 'type','startTime','endTime', 'description','action' ];
     currentIndex=-1;
     constructor(private service:ApiServiceService){}
 

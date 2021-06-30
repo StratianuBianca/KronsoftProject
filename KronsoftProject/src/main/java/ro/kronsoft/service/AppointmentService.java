@@ -3,12 +3,9 @@ package ro.kronsoft.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ro.kronsoft.models.Appointment;
-import ro.kronsoft.repository.AdminRepository;
+import ro.kronsoft.models.Patient;
 import ro.kronsoft.repository.AppointmentRepository;
 import ro.kronsoft.repository.PatientRepository;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -42,7 +39,27 @@ public class AppointmentService {
         }
         return new ArrayList<>();
     }
-
+    public List<Appointment> getAppointmentByPatientName(String patientName){
+        List<Appointment> allAppointments=appointmentRepository.findAll();
+        int patientId = -1;
+        List<Patient> allPatients=patientRepository.findAll();
+        for(Patient patient:allPatients){
+            String name=patient.getLastName()+patient.getFirstName();
+            if(name.equals(patientName)){
+                patientId=patient.getPatientId();
+            }
+        }
+        List<Appointment> appointmentsByPatient=new ArrayList<>();
+        for(Appointment appointment:allAppointments){
+            if(appointment.getPatientId()==patientId){
+                appointmentsByPatient.add(appointment);
+            }
+        }
+        if(!appointmentsByPatient.isEmpty()){
+            return appointmentsByPatient;
+        }
+        return new ArrayList<>();
+    }
     public Appointment createAppointment(Appointment appointment){
         int patientId=appointment.getPatientId();
         if(patientRepository.existsById(patientId)) {

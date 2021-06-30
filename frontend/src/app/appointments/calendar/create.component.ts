@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output, ViewChild} from "@angular/core";
+/*import {Component, EventEmitter, Output, ViewChild} from "@angular/core";
 import {DayPilot, DayPilotModalComponent} from "daypilot-pro-angular";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {CreateEventParams, DataService} from "./data.service";
@@ -117,3 +117,4 @@ export class CreateComponent {
     };
   }
 }
+*/

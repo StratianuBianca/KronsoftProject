@@ -1,0 +1,33 @@
+.form {
+    width: 10%;
+    margin-left: 120%;
+}
+
+.buttons {
+    margin-top: 10%;
+    height: 20%;
+    width: 20%;
+    text-size-adjust: 109%;
+    margin-left: 2%;
+    margin-right: 10%;
+    display: flex;
+}
+
+.toolbar {
+    height: 10%;
+}
+
+.button-row {
+    display: flex;
+}
+
+.search {
+    margin-top: 50%;
+    height: 1%;
+}
+
+.button {
+    margin-top: 20%;
+    width: 50%;
+    height: 50%;
+}
