@@ -1,5 +1,5 @@
 import {Component, OnInit, Output, EventEmitter} from '@angular/core';
-import {FormBuilder, FormGroup, FormControl} from "@angular/forms";
+import {FormBuilder, FormGroup, FormControl, Validators} from "@angular/forms";
 import {PatientModel} from "../../models/patient.model";
 import {PatientService} from "../../service/patient.service";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -61,7 +61,7 @@ export class PatientFormComponent implements OnInit {
       })
     })
   }
-  saveData(){
+  saveData(valid: any){
     const patient:PatientModel={
       patientId:this.form.value['id'],
       firstName:this.form.value['firstName'],
@@ -72,11 +72,12 @@ export class PatientFormComponent implements OnInit {
       phoneNumber:this.form.value['phoneNumber'],
       sex:this.selectedGender,
     }
-    if(patient.patientId){
+    if(patient.patientId && valid){
       this.service.updatePatient(patient).subscribe(() => this.goToList(),(err) => console.log(err) );
     }else{
+      if(valid){
       this.service.postPatient(patient).subscribe(() => this.goToList());
-    }
+    }}
   }
 
   goToList(){

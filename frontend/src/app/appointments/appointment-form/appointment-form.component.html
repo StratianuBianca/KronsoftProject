@@ -24,7 +24,7 @@
 
     <mat-form-field class="patientId">
         <mat-label>Patient id</mat-label>
-        <input formControlName="patientId" matInput placeholder="Ex. Nougat ">
+        <input formControlName="patientId" matInput placeholder="Ex. Nougat " required>
         <mat-hint></mat-hint>
     </mat-form-field>
     <!--
@@ -54,10 +54,18 @@
 
     <mat-form-field class="description ">
         <mat-label>Description</mat-label>
-        <input formControlName="description" matInput placeholder="Ex. Nougat ">
+        <input formControlName="description" matInput placeholder="Ex. Nougat " required>
         <mat-hint></mat-hint>
     </mat-form-field>
-
-    <button mat-flat-button (click)="saveData() ">Save</button>
-
+    <button mat-flat-button (click)="saveData(form.valid) ">Save</button>
+    <div *ngIf="form.controls['patientId'].invalid && (form.controls['patientId'].dirty || form.controls['patientId'].touched)" class="alert alert-danger">
+        <div *ngIf="form.controls['patientId'].errors.required">
+            Patient id is required.
+        </div>
+    </div>
+    <div *ngIf="form.controls['description'].invalid && (form.controls['description'].dirty || form.controls['description'].touched)" class="alert alert-danger">
+        <div *ngIf="form.controls['description'].errors.required">
+            Description is required.
+        </div>
+    </div>
 </form>

@@ -78,7 +78,7 @@ export class AppointmentFormComponent implements OnInit {
   }
 
 
-  public saveData(){
+  public saveData( valid:any){
     const appointment: AppointmentModel={
       appointmentId:parseInt(this.form.value['id']),
       description:this.form.value['description'],
@@ -88,11 +88,12 @@ export class AppointmentFormComponent implements OnInit {
       startTime:this.range.value['start'],
       endTime:this.range.value['end'],
     }
-    if(appointment.appointmentId){
+    if(appointment.appointmentId && valid){
       this.service.updateAppointment(appointment).subscribe(() => this.goToList(),(err) => console.log(err) );
     }else{
+      if(valid){
       this.service.postAppointment(appointment).subscribe(() => this.goToList());
-    }
+    }}
   }
   goToList() {
     this.router.navigate([`appointments/list`])

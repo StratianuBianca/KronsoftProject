@@ -20,6 +20,8 @@ export class CalendarComponent implements OnInit {
   ];
   calendarOptions: CalendarOptions = {
     initialView: 'dayGridMonth',
+    eventClick:function(arg){
+    },
     events: []= this.events,
     editable: true,
     eventStartEditable : true ,
@@ -53,7 +55,13 @@ export class CalendarComponent implements OnInit {
     
  });
  }
+ dataClick(){
+
+ }
  dateClick(event: any){
+   console.log("SDSd");
    console.log(event);
  }
+ 
+
 }

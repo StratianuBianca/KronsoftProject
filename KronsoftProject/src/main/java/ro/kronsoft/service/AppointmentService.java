@@ -85,6 +85,7 @@ public class AppointmentService {
             updateAppointment.setStartTime(appointment.getStartTime());
             updateAppointment.setAppointmentId(appointment.getAppointmentId());
             updateAppointment.setStatus(appointment.getStatus());
+            updateAppointment.setType(appointment.getType());
             appointment=appointmentRepository.save(updateAppointment);
             return appointment;
         }

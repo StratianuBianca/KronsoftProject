@@ -13,7 +13,7 @@ import java.util.Optional;
 public class PatientService {
     @Autowired
     private PatientRepository patientRepository;
-   // @Autowired
+    @Autowired
     private AppointmentService appointmentService;
 
     public List<Patient> getAllPatient(){

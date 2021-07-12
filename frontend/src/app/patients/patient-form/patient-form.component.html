@@ -8,18 +8,18 @@
 
     <mat-form-field class="firstName">
         <mat-label>Fist name</mat-label>
-        <input formControlName="firstName" matInput placeholder="Ex. Nougat">
+        <input formControlName="firstName" id="firstName" name="firstName" matInput placeholder="Ex. Nougat" required minlength="3">
         <mat-hint></mat-hint>
     </mat-form-field>
 
     <mat-form-field class="lastName">
         <mat-label>Last name</mat-label>
-        <input formControlName="lastName" matInput placeholder="Ex. Nougat">
+        <input formControlName="lastName" id="lastName" name="lastName" matInput placeholder="Ex. Nougat" required minlength="3">
         <mat-hint></mat-hint>
     </mat-form-field>
     <mat-form-field class="phoneNumber" appearance="fill">
         <mat-label>Phone number</mat-label>
-        <input formControlName="phoneNumber" matInput placeholder="Ex. Nougat" required>
+        <input type="number" formControlName="phoneNumber" matInput placeholder="Ex. Nougat" required minlength="9">
         <mat-icon matSuffix>phone</mat-icon>
         <mat-hint></mat-hint>
     </mat-form-field>
@@ -32,7 +32,7 @@
     <mat-form-field class="birthDate" appearance="fill">
         <mat-label>Choose a date</mat-label>
         <mat-input [formGroup]="range">
-            <input matInput [matDatepicker]="picker" formControlName="birth">
+            <input matInput [matDatepicker]="picker" formControlName="birth" required>
         </mat-input>
         <mat-datepicker-toggle matSuffix [for]="picker">
             <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
@@ -50,14 +50,38 @@
     </mat-form-field>
     <mat-form-field class="country">
         <mat-label>Country</mat-label>
-        <input formControlName="country" matInput placeholder="Ex. Nougat">
+        <input formControlName="country" matInput placeholder="Ex. Nougat" required>
         <mat-hint></mat-hint>
     </mat-form-field>
     <mat-form-field class="city">
         <mat-label>City</mat-label>
-        <input formControlName="city" matInput placeholder="Ex. Nougat">
+        <input formControlName="city" matInput placeholder="Ex. Nougat" required>
         <mat-hint></mat-hint>
     </mat-form-field>
-    <button mat-flat-button (click)="saveData()">Save</button>
-
+    <button mat-flat-button (click)="saveData(form.valid)">Save</button>
+    <div *ngIf="form.controls['firstName'].invalid && (form.controls['firstName'].dirty || form.controls['firstName'].touched)" class="alert alert-danger">
+        <div *ngIf="form.controls['firstName'].errors.required">
+            First name is required.
+        </div>
+    </div>
+    <div *ngIf="form.controls['lastName'].invalid && (form.controls['lastName'].dirty || form.controls['lastName'].touched)" class="alert alert-danger">
+        <div *ngIf="form.controls['lastName'].errors.required">
+            Last name is required.
+        </div>
+    </div>
+    <div *ngIf="form.controls['country'].invalid && (form.controls['country'].dirty || form.controls['country'].touched)" class="alert alert-danger">
+        <div *ngIf="form.controls['country'].errors.required">
+            Country is required.
+        </div>
+    </div>
+    <div *ngIf="form.controls['city'].invalid && (form.controls['city'].dirty || form.controls['city'].touched)" class="alert alert-danger">
+        <div *ngIf="form.controls['city'].errors.required">
+            City is required.
+        </div>
+    </div>
+    <div *ngIf="form.controls['phoneNumber'].invalid && (form.controls['phoneNumber'].dirty || form.controls['phoneNumber'].touched)" class="alert alert-danger">
+        <div *ngIf="form.controls['phoneNumber'].errors.required">
+            Phone number is required.
+        </div>
+    </div>
 </form>
